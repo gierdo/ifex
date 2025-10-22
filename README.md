@@ -97,94 +97,77 @@ technologies, such as the [Jinja2 template language](https://jinja.palletsprojec
 ## Getting started
 
 ### Prerequisites
-* Python >=3.10 installed (exact version might vary - the best
-  definition of what works is likely the [automated workflow
-files](https://github.com/COVESA/ifex/tree/master/.github/workflows)
-or [tox.ini](./tox.ini))
-* Dependencies installed according to instructions below
+* Python >=3.10 installed
+* [uv](https://docs.astral.sh/uv/) package manager installed
+
+### Installing uv
+
+If you don't have uv installed, install it using:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Or on macOS with Homebrew:
+```bash
+brew install uv
+```
 
 ### Container use
 
 As an alternative to installation instructions below, all the installations can also be hidden in a container.  Refer to the [README in the packaging/docker/ directory](./packaging/docker/README.md) for running the tools using containers instead.
 
-## Installing and use python version(s) with `pyenv`
+## Quick start with uv (recommended)
 
-NOTE: Pyenv can set up virtual environments but is often considered not the best
-choice for that, and we don't use it that way.  Pyenv's most important function
-is to download, compile, and install a particular python version from source
-code.  If your system python version is one that is not supported by this
-project and you are not able to install the right python version using another
-method, then Pyenv can be used.  It can be used in combination with
-virtual-environment handlers, to get access to different python versions.
-
-If [`pyenv` shell command](https://github.com/pyenv/pyenv) is not installed, use its [installer](https://github.com/pyenv/pyenv-installer) to get it:
+The fastest way to get started is using uv, which handles virtual environments and dependencies automatically:
 
 ```bash
-   curl https://pyenv.run | bash  # download and install (YOU are responsible to check the script content)
-   exec $SHELL                    # restart your shell using the new $PATH
+# Install the project and all dependencies
+uv sync
+
+# Run commands using uv
+uv run ifexgen --help
+uv run ifexgen_dbus --help
+uv run pytest
 ```
 
-Activate a version in the current environment
-```sh
-pyenv local 3.10.6
+## Development installation
+
+For development work:
+
+```bash
+# Install with development dependencies
+uv sync --extra dev
+
+# Install in editable mode for development
+uv pip install -e .
 ```
 
-### Setup a python virtual environment (recommended)
+## Alternative: Manual virtual environment setup
 
-Once you have an appropriate version of python, a virtual environment is
-recommended to avoid any particulars in the main system installation.
+If you prefer to manage virtual environments manually:
 
-Go to project directory and then:
-```sh
-python -m venv venv
-source venv/bin/activate
+```bash
+# Create and activate virtual environment
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+uv pip install -e .
+
+# Install development dependencies
+uv pip install -e ".[dev]"
 ```
 
-NEXT: Go to **Installing packages**
-
-### Setup without virtual environment (not recommended)
-
-Go directly to Installing packages
+## Legacy setup methods
 
 ### Setup and run tests using tox
 
-Tox is another way to set up the working environment.  It is primarily used to test the program using multiple python versions.
-
-1. Install tox
-2. Install pyenv (most likely needed, use it if additional python versions are required)
-3. (optional) edit the provided tox.ini file
-4. Run tox  -- this will execute pytest for all stated python versions
-
-Here we provide a script that will check which versions are requested by `tox.ini`, and install all of those versions first, using pyenv:
+Tox is another way to set up the working environment for testing multiple python versions:
 
 ```bash
-   pip install "tox>=4"
-   scripts/pyenv_install_for_tox.sh
-   tox
-```
-Note:  In this case, tox takes care of calling `pip` and `setup.py` to install the required packages.
-
-## Installing packages
-
-(for any or none, virtual-environment -- but not needed if using tox)
-
-Regardless of which type of virtual environment (if any) you use, it is required to install the IFEX package into your python environment, and to install needed dependencies with pip.
-
-0. **If you use a virtual environment, remember to first activate it!**  
-For example:
-```
-source venv/bin/activate
-```
-
-1. Install dependencies:
-```
-pip install -r requirements.txt
-```
-
-2. Install the IFEX provided modules into your virtual environment
-The following installs the package in develop mode (using setup.py)
-```
-pip install -e .
+uv tool install tox
+tox
 ```
 
 ## Trying it out
