@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------
 
 from ifex.models.protobuf import protobuf_lark as protobuf_parser
-from ifex.output_filters.grpc import grpc_generator
+from ifex.output_filters.protobuf import grpc_generator
 import os
 
 TestPath = os.path.dirname(os.path.realpath(__file__))
