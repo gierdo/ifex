@@ -15,9 +15,9 @@ facilitate system integration using popular IPC/RPC protocols, and a variety of
 deployment technologies.
 
 In addition, IFEX defines a Interface Model (and its associated YAML syntax =
-IDL), which can be _optionally_ used as a one-and-all source format for
+IDL), which can be *optionally* used as a one-and-all source format for
 interface definitions.  The flexible core model together with the strong
-_Composable Layers_ design makes it a strong candidate for being the most
+*Composable Layers* design makes it a strong candidate for being the most
 capable interface description approach available. However, using the
 translation tools does not in itself require accepting the IFEX "IDL" as the
 unifying format.
@@ -26,13 +26,13 @@ unifying format.
 
 - The code is provided under the license listed in the file LICENSE, unless otherwise stated in each section or file.
 
-- Contributions to the project are accepted under the terms of the license applicable to each file, pursuant to the standard Developer Certificate of Origin (DCO) used in Linux Kernel development and elsewhere (see DCO.txt or https://developercertificate.org).  Contributors are expected to familiarize themselves with the DCO, and to add Signed-Off-By: lines to their commits to reiterate that the contribution is made according to the statements in the DCO.
+- Contributions to the project are accepted under the terms of the license applicable to each file, pursuant to the standard Developer Certificate of Origin (DCO) used in Linux Kernel development and elsewhere (see DCO.txt or <https://developercertificate.org>).  Contributors are expected to familiarize themselves with the DCO, and to add Signed-Off-By: lines to their commits to reiterate that the contribution is made according to the statements in the DCO.
 
 - Contribution proposals can be made as Pull-Requests or Issues in the main project repository.
 
 ## Documentation
 
-Please refer to the [documentation](https://covesa.github.io/ifex) for more information.  
+Please refer to the [documentation](https://covesa.github.io/ifex) for more information.
 For updates and deep-dive articles, see [the Wiki](https://github.com/COVESA/ifex/wiki) for this repository.
 
 > [!TIP]
@@ -45,7 +45,7 @@ interface descriptions and code-generation.  Other programs generate the IFEX
 interface model/language-specification and other documentation.
 
 The implementations are primarily written in python and using some preferred
-technologies, such as the [Jinja2 template language](https://jinja.palletsprojects.com) 
+technologies, such as the [Jinja2 template language](https://jinja.palletsprojects.com)
 ([(alt.  link)](https://jinja2docs.readthedocs.io/en/stable/)).
 
 ## Project Structure
@@ -53,52 +53,55 @@ technologies, such as the [Jinja2 template language](https://jinja.palletsprojec
 ```
 ├── docs
 │   ├── MD-formatted documents, templates for generation, and static content.
-│   ├── README.md => when viewing docs directory in GitHub, the README is rendered
+│   ├── README.md => when viewing docs directory in GitHub, the README is render
+ed
 ├── helpers
 │   ├── Integrations to associated ecosystems and tools
 │   ├── How-tos or scripts to run code-generation on output results
 │   ├── Example:  sd-bus-c++ generator tools
-├── input_filters
-│   ├── Separate dirs for each supported input IDL
-│   ├── Implementation of common code for parsing/reading each format
-│   ├──    ... but not including the AST definitions (see models/)
-│   ├──    ... therefore, dirs are not guaranteed to include any code
-           ... if it is self contained under the respective transformation implementation
-│   ├──    ... however, some common code for a language may find its place here
-├── output_filters
-│   ├── Separate dirs for each supported interface description model
-│   ├── Implementation of converters from ANY (AST) to text IDL
-│   ├──    ... in other words "print out this AST" type of function
-│   ├── JSON-schema generation
-│   ├── Jinja templates exist here
-├── layer_types
-│   ├── Framework for Layers, and separate dirs for each Layer Type definition
-├── models
-│   ├── Separate dirs for each supported interface description model
-│   ├── The internal models (a.k.a. AST definition) for IFEX and other languages
-├── packaging
+├── ifex
+│   ├── input_filters
+│   │   ├── Separate dirs for each supported input IDL
+│   │   ├── Implementation of common code for parsing/reading each format
+│   │   ├──    ... but not including the AST definitions (see models/)
+│   │   ├──    ... therefore, dirs are not guaranteed to include any code
+│   │   │      ... if it is self contained under the respective transformation implementation
+│   │   ├──    ... however, some common code for a language may find its place h
+ere
+│   ├── output_filters
+│   │   ├── Separate dirs for each supported interface description model
+│   │   ├── Implementation of converters from ANY (AST) to text IDL
+│   │   ├──    ... in other words "print out this AST" type of function
+│   │   ├── JSON-schema generation
+│   │   ├── Jinja templates exist here
+│   ├── layer_types
+│   │   ├── Framework for Layers, and separate dirs for each Layer Type definition
+│   ├── models
+│   │   ├── Separate dirs for each supported interface description model
+│   │   ├── The internal models (a.k.a. AST definition) for IFEX and other languages
+│   └── transformers
+│       ├── Separate dirs for each supported interface description model
+│       ├── Generic rule-based "transformation engine" implementation, that maybe used by multiple tools
+│       ├── Implementation of specific transformers, if not covered by input/output filters
+├── ifex_packaging
 │   ├── Helper files for packaging the project in various ways
 │   ├── docker - Docker deployment, for testing and/or end-user use
-│   └── entrypoints - 
+│   └── entrypoints -
 │       ├── Short script wrappers defining entry-points for python tools
 │       ├──    ... defines the executable commands created when installing the package
-├── requirements.txt, pyproject.toml, tox.ini. - Python dependencies expressed in different ways
+├── pyproject.toml, tox.ini - Python dependencies expressed in different ways
 ├── scripts
 │   ├── Helper scripts primarily used for development, not end-user scripts
-├── tests
-│   ├── Unit test definitions, and input data
-└── transformers
-│   ├── Separate dirs for each supported interface description model
-│   ├── Generic rule-based "transformation engine" implementation, that may be used by multiple tools
-│   ├── Implementation of specific transformers, if not covered by input/output filters
+└── tests
+    ├── Unit test definitions, and input data
 
 ```
 
 ## Getting started
 
 ### Prerequisites
-* Python >=3.10 installed
-* [uv](https://docs.astral.sh/uv/) package manager installed
+- Python >=3.10 installed
+- [uv](https://docs.astral.sh/uv/) package manager installed
 
 ### Installing uv
 
@@ -109,6 +112,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 Or on macOS with Homebrew:
+
 ```bash
 brew install uv
 ```
@@ -182,13 +186,14 @@ To run a generic code generator and specify an output template:
 ```
 usage: ifexgen [-h] -d templates-dir-name ifex-input-file
 ```
+
 To get some test IFEX files, clone the VSC repo:
 
 ```bash
    git clone https://github.com/COVESA/vehicle_service_catalog
 
    # Using a template
-   ifexgen vehicle_service_catalog/comfort-service.yml -d dtdl 
+   ifexgen vehicle_service_catalog/comfort-service.yml -d dtdl
 
    # D-Bus:
    ifexgen_dbus vehicle_service_catalog/comfort-service.yml
@@ -202,6 +207,7 @@ To test some <other>-to-IFEX conversion, for example **gRPC/protobuf**:
 ```
 
 To try the D-Bus XML generator:
+
 ```
 usage: ifexgen_dbus input_ifex.yaml
 ```
@@ -240,6 +246,6 @@ with the label "bug"
 
 Various tips to consider:
 
-* If the installation (pip install) is executed behind a (corporate) proxy, the following environments variables must be set: `http_proxy` and `https_proxy` (including authentication e.g., `http://${proxy_username):$(proxy_password)@yourproxy.yourdomain`)
-* If you use a custom pip installation directory, set the `PYTHONPATH` environment variable to the directory that you set in the `pip.ini` file.
-* If you do not run with administration rights, you may need to configure pip target path to write to your user home directory or consider using one of the `virtual environment` methods.
+- If the installation (pip install) is executed behind a (corporate) proxy, the following environments variables must be set: `http_proxy` and `https_proxy` (including authentication e.g., `http://${proxy_username):$(proxy_password)@yourproxy.yourdomain`)
+- If you use a custom pip installation directory, set the `PYTHONPATH` environment variable to the directory that you set in the `pip.ini` file.
+- If you do not run with administration rights, you may need to configure pip target path to write to your user home directory or consider using one of the `virtual environment` methods.

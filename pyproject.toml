@@ -41,9 +41,9 @@ dev = [
 ]
 
 [project.scripts]
-ifexgen = "packaging.entrypoints.generator:ifex_generator_run"
-ifexgen_dbus = "packaging.entrypoints.generator_dbus:ifex_dbus_generator_run"
-ifexconv_protobuf = "packaging.entrypoints.protobuf_ifex:protobuf_to_ifex_run"
+ifexgen = "ifex_packaging.entrypoints.generator:ifex_generator_run"
+ifexgen_dbus = "ifex_packaging.entrypoints.generator_dbus:ifex_dbus_generator_run"
+ifexconv_protobuf = "ifex_packaging.entrypoints.protobuf_ifex:protobuf_to_ifex_run"
 
 [project.urls]
 Homepage = "https://github.com/COVESA/ifex"
@@ -53,24 +53,12 @@ Issues = "https://github.com/COVESA/ifex/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = [
-    "input_filters",
-    "models", 
-    "output_filters",
-    "packaging",
-    "transformers",
-    "layer_types"
+    "ifex",
+    "ifex_packaging"
 ]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/input_filters",
-    "/output_filters",
-    "/layer_types",
-    "/models",
-    "/packaging",
-    "/transformers",
-    "/docs",
-    "/helpers",
-    "/scripts",
-    "/tests",
+    "/ifex",
+    "/ifex_packaging",
 ]
